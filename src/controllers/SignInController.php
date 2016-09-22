@@ -25,6 +25,9 @@ class SignInController extends CommonController
                         'roles' => ['?'],
                     ],
                 ],
+                'denyCallback' => function ($rule, $action) {
+                    $this->goHome();
+                },
             ],
         ];
     }
