@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use app\models\User;
 
 /**
  * Class CommonController
@@ -15,6 +15,24 @@ class CommonController extends Controller
 {
     /** @var User */
     protected $user;
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class'  => AccessControl::className(),
+                'rules'  => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
