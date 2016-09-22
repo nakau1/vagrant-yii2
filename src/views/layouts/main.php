@@ -39,7 +39,7 @@ AppAsset::register($this);
     Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/']],
+            ['label' => 'サインアウト', 'url' => ['sign-in/sign-out']],
         ],
     ]);
     ?>
