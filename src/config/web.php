@@ -18,7 +18,7 @@ $config = array_merge_recursive(require(__DIR__ . '/common.php'), [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'default/error',
         ],
     ],
     'modules'             => [
