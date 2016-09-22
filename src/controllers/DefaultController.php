@@ -2,11 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\ActivateCardForm;
-use app\models\ContactForm;
-use app\models\Information;
-use Yii;
-
 /**
  * Class DefaultController
  * @package app\controllers
