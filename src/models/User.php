@@ -19,7 +19,8 @@ use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord
 {
-    const STATUS_NEW = 'new'; // 新規ユーザ
+    const STATUS_NEW     = 'new'; // 新規ユーザ
+    const STATUS_REMOVED = 'removed'; // 削除済み
 
     /**
      * @return array
