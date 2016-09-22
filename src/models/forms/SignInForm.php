@@ -2,8 +2,9 @@
 
 namespace app\models\forms;
 
-use app\models\User;
+use Yii;
 use yii\base\Model;
+use app\models\User;
 use app\models\traits\ValidateTrait;
 
 /**
@@ -12,11 +13,16 @@ use app\models\traits\ValidateTrait;
  */
 class SignInForm extends Model
 {
+    const REMEMBER_DURATION = 2592000; // 30日間
+
     use ValidateTrait;
 
     public $email;
     public $password;
     public $remember = true;
+
+    /** @var User */
+    private $user = null;
 
     /**
      * @return array
@@ -26,6 +32,7 @@ class SignInForm extends Model
         return [
             [['email', 'password'], 'required'],
             ['email', 'validateLaxEmail'],
+            ['password', 'validatePassword'],
         ];
     }
 
@@ -50,20 +57,29 @@ class SignInForm extends Model
 
     public function signIn()
     {
-        if (!$this->validate()) {
-            return false;
+        if ($this->validate()) {
+            return Yii::$app->user->login($this->getUser(), $this->remember ? self::REMEMBER_DURATION : 0);
         }
+        return false;
+    }
 
-        $user = User::find()->andWhere([
-            'mail_address' => $this->email,
-        ])->one();
-        if (!$user) {
-            $this->addError('email', 'ユーザが見つかりません');
-            return false;
+    public function getUser()
+    {
+        if (is_null($this->user)) {
+            $this->user = User::find()->andWhere([
+                User::tableName() . '.mail_address' => $this->email,
+            ])->one();
         }
+        return $this->user;
+    }
 
-
-
-        return true;
+    public function validatePassword($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'メールアドレスとパスワードが一致しません');
+            }
+        }
     }
 }

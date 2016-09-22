@@ -57,7 +57,13 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function find()
     {
-        return new UserQuery(get_called_class());
+        $ret = new UserQuery(get_called_class());
+        $ret->where([
+            '!=',
+            self::tableName() . '.status',
+            self::STATUS_REMOVED,
+        ]);
+        return $ret;
     }
 
     /**
@@ -65,12 +71,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return self::find()->where([
+        return self::find()->andWhere([
             self::tableName() . '.id' => $id,
-        ])->andWhere([
-            '!=',
-            self::tableName() . '.status',
-            self::STATUS_REMOVED,
         ])->one();
     }
 
@@ -104,5 +106,15 @@ class User extends ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return $this->id == $authKey;
+    }
+
+    /**
+     * パスワードのバリデーション
+     * @param $password string パスワード
+     * @return bool 現在のユーザと一致するかどうか
+     */
+    public function validatePassword($password)
+    {
+        return $this->password === $password;
     }
 }

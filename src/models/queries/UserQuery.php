@@ -13,19 +13,23 @@ class UserQuery extends ActiveQuery
 {
     /**
      * @inheritdoc
-     * @return array|UserQuery[]
+     * @return UserQuery[]
      */
     public function all($db = null)
     {
-        return parent::all($db);
+        /** @var $ret UserQuery[] */
+        $ret = parent::all($db);
+        return $ret;
     }
 
     /**
      * @inheritdoc
-     * @return UserQuery|array|null
+     * @return UserQuery|null
      */
     public function one($db = null)
     {
-        return parent::one($db);
+        /** @var $ret UserQuery|null */
+        $ret = parent::one($db);
+        return $ret;
     }
 }
