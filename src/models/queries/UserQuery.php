@@ -1,19 +1,19 @@
 <?php
 
-namespace app\models;
+namespace app\models\queries;
 
 use yii\db\ActiveQuery;
 
 /**
  * Class UserQuery
- * @package app\models
+ * @package app\models\queries
  * @see User
  */
 class UserQuery extends ActiveQuery
 {
     /**
      * @inheritdoc
-     * @return PolletUser[]|array
+     * @return array|UserQuery[]
      */
     public function all($db = null)
     {
@@ -22,7 +22,7 @@ class UserQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return PolletUser|array|null
+     * @return UserQuery|array|null
      */
     public function one($db = null)
     {
