@@ -1,22 +1,22 @@
 <?php
 
-namespace app\models;
+namespace app\models\forms;
 
-
-use Yii;
+use app\models\User;
 use yii\base\Model;
 use app\models\traits\ValidateTrait;
 
 /**
- * ログインフォーム用モデル
- * @package app\models
+ * サインインフォーム用モデル
+ * @package app\models\forms
  */
-class LoginForm extends Model
+class SignInForm extends Model
 {
     use ValidateTrait;
 
     public $email;
     public $password;
+    public $remember = true;
 
     /**
      * @return array
@@ -24,8 +24,8 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            [['email'], 'required'],
-            [['email'], 'validateLaxEmail'],
+            [['email', 'password'], 'required'],
+            ['email', 'validateLaxEmail'],
         ];
     }
 
@@ -34,6 +34,8 @@ class LoginForm extends Model
     {
         return [
             'email' => 'メールアドレス',
+            'password' => 'パスワード',
+            'remember' => 'サインインを持続する',
         ];
     }
 
@@ -44,5 +46,24 @@ class LoginForm extends Model
     protected function getModel()
     {
         return $this;
+    }
+
+    public function signIn()
+    {
+        if (!$this->validate()) {
+            return false;
+        }
+
+        $user = User::find()->andWhere([
+            'mail_address' => $this->email,
+        ])->one();
+        if (!$user) {
+            $this->addError('email', 'ユーザが見つかりません');
+            return false;
+        }
+
+
+
+        return true;
     }
 }
