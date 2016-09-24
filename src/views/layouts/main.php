@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\assets\SBAdmin2Asset;
 use app\models\User;
 
@@ -66,9 +67,9 @@ SBAdmin2Asset::register($this);
                         </div>
                         <!-- /input-group -->
                     </li>
-                    <li><a href="/"><i class="fa fa-dashboard fa-fw"></i> ダッシュボード</a></li>
-                    <li><a href="file"><i class="fa fa-files-o fa-fw"></i> ファイル</a></li>
-                    <li><a href="user"><i class="fa fa-users fa-fw"></i> ユーザ</a></li>
+                    <li><a href="<?= Url::to('/') ?>"><i class="fa fa-dashboard fa-fw"></i> ダッシュボード</a></li>
+                    <li><a href="<?= Url::to('/file') ?>"><i class="fa fa-files-o fa-fw"></i> ファイル</a></li>
+                    <li><a href="<?= Url::to('/user') ?>"><i class="fa fa-users fa-fw"></i> ユーザ</a></li>
                 </ul>
             </div>
         </div>
