@@ -1,0 +1,2 @@
+cd ~/Desktop/neroblu-vagrant-yii2/
+vagrant up --provision
