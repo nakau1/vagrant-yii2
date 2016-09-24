@@ -67,7 +67,7 @@ class SignInForm extends Model
     {
         if (is_null($this->user)) {
             $this->user = User::find()->andWhere([
-                User::tableName() . '.mail_address' => $this->email,
+                User::tableName() . '.email' => $this->email,
             ])->one();
         }
         return $this->user;

@@ -2,32 +2,52 @@
 
 use yii\db\Migration;
 
-/**
- * Handles the creation for table `user`.
- */
 class m160922_150519_create_tables extends Migration
 {
-    /**
-     * @inheritdoc
-     */
     public function up()
     {
+        // user
         $this->createTable('user', [
-            'id'           => $this->primaryKey(),
-            'name'         => $this->string(256)->null(),
-            'mail_address' => $this->string(256)->null(),
-            'password'     => $this->string(256)->null(),
-            'status'       => $this->string(35)->notNull()->defaultValue('new'),
+            'id'            => $this->primaryKey(),
+            'user_token'    => $this->string(256)->null()->comment('ユーザ識別文字列'),
+            'screen_name'   => $this->string(24)->null()->comment('スクリーン名'),
+            'name'          => $this->string(256)->null()->comment('名前'),
+            'email'         => $this->string(256)->null()->comment('メールアドレス'),
+            'status'        => $this->string(16)->notNull()->defaultValue('active')->comment('ステータス'),
+            'role'          => $this->string(16)->notNull()->defaultValue('member')->comment('権限'),
+            'created_at'    => $this->integer()->null(),
+            'updated_at'    => $this->integer()->null(),
+        ]);
+        $this->createIndex('unq_user_user_token', 'user', 'user_token', true);
+        $this->createIndex('unq_user_screen_name', 'user', 'screen_name', true);
+
+        // user_auth
+        $this->createTable('user_auth', [
+            'user_id'    => $this->integer()->notNull()->comment('ユーザID'),
+            'password'      => $this->string(256)->null()->comment('パスワード'),
             'created_at'   => $this->integer()->null(),
             'updated_at'   => $this->integer()->null(),
         ]);
+        $this->createIndex('unq_user_auth_user_id', 'user_auth', 'user_id', true);
+
+        // DATA:INSERT user, user_auth
+        $this->insert('user', [
+            'id'          => 1,
+            'user_token'  => md5(time()),
+            'screen_name' => 'nakau1',
+            'name'        => 'Yuichi Nakayasu',
+            'email'       => 'yuichi.nakayasu@gmail.com',
+            'role'        => 'administrator',
+        ]);
+        $this->insert('user_auth', [
+            'user_id'  => 1,
+            'password' => '19821116',
+        ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function down()
     {
+        $this->dropTable('user_auth');
         $this->dropTable('user');
     }
 }

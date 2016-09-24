@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\models\queries\UserQuery;
 use yii\base\NotSupportedException;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
@@ -12,17 +13,24 @@ use yii\web\IdentityInterface;
  * ユーザ
  *
  * @property integer $id
- * @property string $name
- * @property string $mail_address
- * @property string $password
- * @property string $status
+ * @property string $user_token ユーザ識別文字列
+ * @property string $screen_name スクリーン名
+ * @property string $name 名前
+ * @property string $email メールアドレス
+ * @property string $status ステータス
+ * @property string $role 権限
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * @property UserAuth $auth
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_NEW     = 'new'; // 新規ユーザ
+    const STATUS_ACTIVE  = 'active';
     const STATUS_REMOVED = 'removed'; // 削除済み
+
+    const ROLE_MEMBER = 'member';        // 一般会員
+    const ROLE_ADMIN  = 'administrator'; // 管理者
 
     /**
      * @return array
@@ -48,7 +56,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['password', 'mail_address'], 'string', 'max' => 256],
+            [['password', 'email'], 'string', 'max' => 256],
         ];
     }
 
@@ -115,6 +123,14 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return $this->auth->password === $password;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAuth()
+    {
+        return $this->hasOne(UserAuth::className(), ['user_id' => 'id']);
     }
 }
