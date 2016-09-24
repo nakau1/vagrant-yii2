@@ -63,6 +63,21 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
+    public function attributeLabels()
+    {
+        return [
+            'id'          => 'ID',
+            'screen_name' => 'スクリーン名',
+            'name'        => '名前',
+            'email'       => 'メールアドレス',
+            'status'      => 'ステータス',
+            'role'        => '権限',
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         $ret = new UserQuery(get_called_class());
