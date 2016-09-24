@@ -28,7 +28,6 @@ phpunit.phar
 /phpunit.xml
 
 # Project Settings
-/environment/conf.php
 /runtime/*
 !/runtime/.gitkeep
 
