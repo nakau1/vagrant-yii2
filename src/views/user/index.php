@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\searches\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,30 +11,37 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 
-
 ?>
-<div class="user-index">
+<h1 class="page-header">ユーザ管理</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">ユーザ一覧</div>
+    <div class="panel-body">
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+            <?php Pjax::begin(); ?>
+            <?=
+            GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    ['class' => 'yii\grid\CheckboxColumn'],
+                    'id',
+                    'screen_name',
+                    'name',
+                    'email',
+                    'status',
+                    'role',
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ])
+            ?>
+            <?php Pjax::end(); ?>
+        </div>
+        <div class="well">
+            <?=
+                Html::a(Yii::t('app', '新しくユーザを作成'), ['create'], [
+                    'class' => 'btn btn-success btn-lg btn-block',
+                ]);
+            ?>
+        </div>
+    </div>
+</div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'email',
-            'status',
-            // 'created_at',
-            // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
