@@ -1,5 +1,6 @@
 <?php
 return [
     // DefaultController
-    '' => 'default/index',
+    ''         => 'default/index',
+    'sign-out' => 'sign-in/sign-out',
 ];
