@@ -43,6 +43,21 @@ class m160922_150519_create_tables extends Migration
             'user_id'  => 1,
             'password' => '19821116',
         ]);
+
+//        for ($i = 1; $i <= 100; $i++) {
+//            $this->insert('user', [
+//                'id'          => $i,
+//                'user_token'  => md5(time()).$i,
+//                'screen_name' => 'nakau'.$i,
+//                'name'        => 'Yuichi Nakayasu',
+//                'email'       => 'yuichi.nakayasu@gmail.com',
+//                'role'        => 'administrator',
+//            ]);
+//            $this->insert('user_auth', [
+//                'user_id'  => $i,
+//                'password' => '19821116',
+//            ]);
+//        }
     }
 
     public function down()
