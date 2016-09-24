@@ -43,6 +43,8 @@ class SignInController extends CommonController
             return $this->goHome();
         }
 
+
+        $this->layout = 'sign-in';
         return $this->render('index', [
             'signInForm' => $signInForm,
         ]);

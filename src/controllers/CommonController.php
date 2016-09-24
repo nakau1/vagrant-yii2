@@ -56,6 +56,10 @@ class CommonController extends Controller
      */
     public function render($view, $params = [])
     {
+        // for layout
+        Yii::$app->view->params['user'] = $this->user;
+
+        // for content
         return parent::render($view, array_merge($params, [
             'user' => $this->user,
         ]));

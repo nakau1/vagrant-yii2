@@ -14,7 +14,7 @@ $form = ActiveForm::begin([
     'class' => 'form-signin',
 ]);
 ?>
-    <h2 class="form-signin-heading">サインインしてください</h2>
+    <h1 class="page-header">サインインしてください</h1>
 
     <label for="inputEmail" class="sr-only"><?= Html::encode($signInForm->getAttributeLabel('email')) ?></label>
 <?=
@@ -39,11 +39,10 @@ $form->field($signInForm, 'password')->passwordInput([
     </div>
 <?=
 Html::submitButton('サインイン', [
-    'class' => 'btn btn-primary btn-lg btn-block',
+    'class' => 'btn btn-success btn-lg btn-block',
 ])
 ?>
-<hr/>
-    <h2 class="form-signin-heading">もしくは新規登録</h2>
+    <h1 class="page-header">もしくは新規登録</h1>
 <?=
 Html::a('サインアップ', 'sign-up', [
     'class' => 'btn btn-primary btn-lg btn-block',
