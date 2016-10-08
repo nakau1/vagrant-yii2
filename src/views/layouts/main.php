@@ -46,7 +46,7 @@ SBAdmin2Asset::register($this);
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="user/view?id=<?= $user->id ?>"><i class="fa fa-user fa-fw"></i> <?= $user->name ?></a></li>
+                    <li><a href="user/<?= $user->id ?>"><i class="fa fa-user fa-fw"></i> <?= $user->name ?></a></li>
                     <li class="divider"></li>
                     <li><a href="sign-out"><i class="fa fa-sign-out fa-fw"></i> サインアウト</a></li>
                 </ul>

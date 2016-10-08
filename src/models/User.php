@@ -75,6 +75,13 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeHints()
+    {
+        return [
+            'screen_name' => '20字以内の英数字',
+        ];
+    }
+
     /**
      * @inheritdoc
      */
