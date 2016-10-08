@@ -12,6 +12,7 @@ use app\models\traits\ValidateTrait;
  * @package app\models\forms
  */
 class SignInForm extends Model
+
 {
     const REMEMBER_DURATION = 2592000; // 30日間
 

@@ -1,4 +1,7 @@
 ---
+- name: be sure my.cnf file correct
+  template: src=my.conf dest=/etc/my.cnf backup=yes
+
 - name: be sure hosts file correct
   template: src=hosts.j2 dest=/etc/hosts backup=yes
 

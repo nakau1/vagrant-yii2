@@ -10,3 +10,4 @@ exit;
 exit
 cd /var/www/neroblu/src
 php yii migrate/up
+

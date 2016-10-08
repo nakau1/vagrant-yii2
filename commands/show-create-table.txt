@@ -1,0 +1,9 @@
+cd ~/Desktop/neroblu-vagrant-yii2/
+vagrant ssh
+sudo su
+mysql -u root -poz-vision123
+use daifuku;
+show create table user;
+show create table user_auth;
+show create table note_book;
+show create table note;

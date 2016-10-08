@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\models\User;
 
 /**
  * Class DefaultController
@@ -14,6 +15,7 @@ class DefaultController extends CommonController
      */
     public function actionIndex()
     {
+        $m = new User();
         return $this->render('index', [
 
         ]);

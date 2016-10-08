@@ -5,8 +5,6 @@ namespace app\models;
 use app\models\queries\UserQuery;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
 
 /**
@@ -23,24 +21,17 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  *
  * @property UserAuth $auth
+ * @property NoteBook[] $noteBooks
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends CommonActiveRecord implements IdentityInterface
 {
+    const DUMMY = 300.94;
+
     const STATUS_ACTIVE  = 'active';
     const STATUS_REMOVED = 'removed'; // 削除済み
 
     const ROLE_MEMBER = 'member';        // 一般会員
     const ROLE_ADMIN  = 'administrator'; // 管理者
-
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
 
     /**
      * @inheritdoc
@@ -147,5 +138,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuth()
     {
         return $this->hasOne(UserAuth::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNoteBooks()
+    {
+        return $this->hasMany(NoteBook::className(), ['user_id' => 'id']);
     }
 }

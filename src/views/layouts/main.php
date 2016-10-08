@@ -68,7 +68,7 @@ SBAdmin2Asset::register($this);
                         <!-- /input-group -->
                     </li>
                     <li><a href="<?= Url::to('/') ?>"><i class="fa fa-dashboard fa-fw"></i> ダッシュボード</a></li>
-                    <li><a href="<?= Url::to('/file') ?>"><i class="fa fa-files-o fa-fw"></i> ファイル</a></li>
+                    <li><a href="<?= Url::to('/note-book') ?>"><i class="fa fa-book fa-fw"></i> ノートブック</a></li>
                     <li><a href="<?= Url::to('/user') ?>"><i class="fa fa-users fa-fw"></i> ユーザ</a></li>
                 </ul>
             </div>

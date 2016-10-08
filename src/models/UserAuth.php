@@ -2,9 +2,6 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
-
 /**
  * ユーザ認証
  *
@@ -13,18 +10,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class UserAuth extends ActiveRecord
+class UserAuth extends CommonActiveRecord
 {
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
-
     /**
      * @inheritdoc
      */
